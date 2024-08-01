@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>
-        edit Page
+        edit
     </x-slot:heading>
 
     <form method="POST" action="/jobs/{{$job->id}}">
