@@ -9,14 +9,14 @@ Route::view('/', 'home');
 
 // jobs 
 Route::controller(JobController::class)->group( function () {
-    Route::get('/jobs','index');
+    Route::get('/jobs','index')->middleware('auth')->can('edit-job', 'job');
     Route::get('jobs/create','create');
     Route::post('/jobs','store');
     Route::get('/jobs/{job}','show'); 
     Route::get('/jobs/{job}/edit','edit');
     Route::patch('/jobs/{job}','update');
     Route::delete('/jobs/{job}','destroy');
-});
+})->middleware('auth');
 
 Route::view('/contact', 'contact');
 
@@ -25,6 +25,6 @@ Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
 
-Route::get('/login', [SessionUserController::class, 'create']);
+Route::get('/login', [SessionUserController::class, 'create'])->name('login');
 Route::post('/login', [SessionUserController::class, 'store']);
 Route::post('/logout', [SessionUserController::class, 'destroy']);
